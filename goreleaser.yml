@@ -1,11 +1,11 @@
 before:
   hooks:
     - go mod tidy
-    - rm -rf completions
-    - mkdir completions
-    - sh -c 'go run . completion "bash" >./completions/ray.bash'
-    - sh -c 'go run . completion "zsh" >./completions/ray.zsh'
-    - sh -c 'go run . completion "fish" >./completions/ray.fish'
+    # - rm -rf completions
+    # - mkdir completions
+    # - sh -c 'go run . completion "bash" >./completions/ray.bash'
+    # - sh -c 'go run . completion "zsh" >./completions/ray.zsh'
+    # - sh -c 'go run . completion "fish" >./completions/ray.fish'
 changelog:
   skip: true
 builds:
@@ -33,6 +33,6 @@ brews:
       name: homebrew-tap
     install: |-
       bin.install "ray"
-      bash_completion.install "completions/ray.bash"
-      zsh_completion.install "completions/ray.zsh"
-      fish_completion.install "completions/ray.fish"
+      # bash_completion.install "completions/ray.bash"
+      # zsh_completion.install "completions/ray.zsh"
+      # fish_completion.install "completions/ray.fish"
