@@ -1,4 +1,4 @@
-module github.com/pomdtr/raycast
+module github.com/pomdtr/raycast-cli
 
 go 1.21.2
 
