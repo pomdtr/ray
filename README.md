@@ -3,8 +3,14 @@
 ## Installation
 
 ```sh
-go install github.com/pomdtr/raycast-cli@latest
+# using homebrew
+brew install pomdtr/tap/ray
+
+# compile from source
+go install github.com/pomdtr/ray@latest
 ```
+
+or download the binary from the [releases page](https://github.com/pomdtr/ray/releases).
 
 ## Usage
 

@@ -3,15 +3,15 @@ before:
     - go mod tidy
     - rm -rf completions
     - mkdir completions
-    - sh -c 'go run . completion "bash" >./completions/raycast.bash'
-    - sh -c 'go run . completion "zsh" >./completions/raycast.zsh'
-    - sh -c 'go run . completion "fish" >./completions/raycast.fish'
+    - sh -c 'go run . completion "bash" >./completions/ray.bash'
+    - sh -c 'go run . completion "zsh" >./completions/ray.zsh'
+    - sh -c 'go run . completion "fish" >./completions/ray.fish'
 changelog:
   skip: true
 builds:
-  - binary: raycast
+  - binary: ray
     ldflags:
-      - -s -w -X github.com/pomdtr/raycast/main.Version={{.Version}} -X github.com/pomdtr/raycast/main.Date={{time "2006-01-02"}}
+      - -s -w -X github.com/pomdtr/ray/main.Version={{.Version}} -X github.com/pomdtr/ray/main.Date={{time "2006-01-02"}}
     env:
       - CGO_ENABLED=0
     goos:
@@ -26,13 +26,13 @@ archives:
 snapshot:
   name_template: "{{ incpatch .Version }}-next"
 brews:
-  - name: raycast
-    homepage: https://github.com/pomdtr/raycast-cli
+  - name: ray
+    homepage: https://github.com/pomdtr/ray
     repository:
       owner: pomdtr
       name: homebrew-tap
     install: |-
-      bin.install "raycast"
-      bash_completion.install "completions/raycast.bash"
-      zsh_completion.install "completions/raycast.zsh"
-      fish_completion.install "completions/raycast.fish"
+      bin.install "ray"
+      bash_completion.install "completions/ray.bash"
+      zsh_completion.install "completions/ray.zsh"
+      fish_completion.install "completions/ray.fish"
