@@ -1,0 +1,37 @@
+before:
+  hooks:
+    - go mod tidy
+    - rm -rf completions
+    - mkdir completions
+    - sh -c 'go run . completion "bash" >./completions/{{ .ProjectName }}.bash'
+    - sh -c 'go run . completion "zsh" >./completions/{{ .ProjectName }}.zsh'
+    - sh -c 'go run . completion "fish" >./completions/{{ .ProjectName }}.fish'
+changelog:
+  skip: true
+builds:
+  - ldflags:
+      - -s -w -X github.com/pomdtr/raycast/main.Version={{.Version}} -X github.com/pomdtr/raycast/main.Date={{time "2006-01-02"}}
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+checksum:
+  name_template: "checksums.txt"
+archives:
+  - files:
+      - README.md
+      - LICENSE-MIT
+      - completions/*
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+brews:
+  - name: raycast
+    homepage: https://github.com/pomdtr/raycast-cli
+    repository:
+      owner: pomdtr
+      name: homebrew-tap
+    install: |-
+      bin.install "raycast"
+      bash_completion.install "completions/raycast.bash"
+      zsh_completion.install "completions/raycast.zsh"
+      fish_completion.install "completions/raycast.fish"
