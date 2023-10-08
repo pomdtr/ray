@@ -14,18 +14,18 @@ or download the binary from the [releases page](https://github.com/pomdtr/ray/re
 
 ## Usage
 
-Use `raycast [extension] [command]` to run a command.
+Use `ray [extension] [command]` to run a command.
 
 You can also pass arguments to the command.
 
 ```sh
-raycast arc new-little-arc https://raycast.com
+ray arc new-little-arc https://raycast.com
 ```
 
 Use stdin to pass a context to the command.
 
 ```sh
-jq -n '{ key: "value"}' | raycast ...
+jq -n '{ key: "value"}' | ray ...
 ```
 
 If you want to copy the deeplink instead of opening it, use the `--copy` flag.
