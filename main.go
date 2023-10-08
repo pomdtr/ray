@@ -162,7 +162,7 @@ func NewCmdRoot() (*cobra.Command, error) {
 	}
 
 	rootCmd := &cobra.Command{
-		Use:     "raycast",
+		Use:     "ray",
 		Short:   "A command line interface for Raycast",
 		Version: fmt.Sprintf("%s (%s)", Version, Date),
 	}
