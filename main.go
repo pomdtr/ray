@@ -28,10 +28,10 @@ type RaycastManifest struct {
 }
 
 type RaycastCommand struct {
-	Name        string `json:"name"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Mode        string `json:"mode"`
+	Name        string      `json:"name"`
+	Title       string      `json:"title"`
+	Description string      `json:"description"`
+	Mode        CommandMode `json:"mode"`
 	Arguments   []struct {
 		Name        string       `json:"name"`
 		Type        ArgumentType `json:"type"`
@@ -39,6 +39,14 @@ type RaycastCommand struct {
 		Required    bool         `json:"required"`
 	} `json:"arguments"`
 }
+
+type CommandMode string
+
+const (
+	CommandModeView    CommandMode = "view"
+	CommandModeNoView  CommandMode = "no-view"
+	CommandModeMenuBar CommandMode = "menu-bar"
+)
 
 type ArgumentType string
 
@@ -49,8 +57,9 @@ const (
 
 func NewCmdCommand(manifest RaycastManifest, command RaycastCommand) *cobra.Command {
 	flags := struct {
-		Print bool
-		Copy  bool
+		Print      bool
+		Copy       bool
+		Background bool
 	}{}
 
 	cmd := &cobra.Command{
@@ -68,7 +77,10 @@ func NewCmdCommand(manifest RaycastManifest, command RaycastCommand) *cobra.Comm
 			}
 
 			query := make(url.Values)
-			if command.Mode != "view" {
+			if flags.Background {
+				if command.Mode == CommandModeView {
+					return fmt.Errorf("command '%s' does not support background mode", command.Name)
+				}
 				query.Set("launchType", "background")
 			}
 
@@ -118,6 +130,7 @@ func NewCmdCommand(manifest RaycastManifest, command RaycastCommand) *cobra.Comm
 
 	cmd.Flags().BoolVar(&flags.Print, "print", false, "Print the deeplink to the clipboard instead of opening it")
 	cmd.Flags().BoolVar(&flags.Copy, "copy", false, "Copy the deeplink to the clipboard instead of opening it")
+	cmd.Flags().BoolVar(&flags.Background, "background", false, "Launch command in background mode")
 
 	cmd.MarkFlagsMutuallyExclusive("print", "copy")
 
