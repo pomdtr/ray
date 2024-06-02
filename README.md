@@ -12,7 +12,7 @@ go install github.com/pomdtr/ray@latest
 
 or download the binary from the [releases page](https://github.com/pomdtr/ray/releases).
 
-See the `sunbeam completion` command to generate completion scripts for your shell.
+See the `raycast completion` command to generate completion scripts for your shell.
 
 ## Usage
 
